@@ -1,0 +1,105 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Node.js crud application using typescript",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8000",
+  "basepath": "/",
+  "tags": [
+    {
+      "name": "User",
+      "description": "API's for users to create retrieve update and delete"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/post": {
+      "post": {
+        "tags": ["User"],
+        "description": "Create new user",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "User name that we want to create",
+            "required": true
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "description": "User email that we want to create",
+            "required": true
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "description": "User password that we want to create",
+            "required": true
+          }
+        ],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "User created succesfully"
+          }
+        }
+      }
+    },
+    "/api/get": {
+      "get": {
+        "tags": ["Users"],
+
+        "summary": "get all the users",
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/api/update/{user_id}": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "update user by id",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "body",
+            "description": "User name that we want to update"
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "description": "User email that we want to update"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "description": "User password that we want to "
+          }
+        ],
+        "responses": {
+          "200": { "description": "user updated" }
+        }
+      }
+    },
+    "/api/delete/{user_id}": {
+      "delete": {
+        "tags": ["Users"],
+        "summary": "delete user from system",
+        "responses": {
+          "200": {
+            "description": "user deleted succesfully"
+          }
+        }
+      }
+    }
+  }
+}
