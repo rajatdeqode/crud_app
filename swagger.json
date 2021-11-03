@@ -1,15 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
+    "description": "Node.js CRUD application using typescript",
     "version": "1.0.0",
-    "title": "Node.js crud application using typescript",
-    "license": {
-      "name": "MIT",
-      "url": "https://opensource.org/licenses/MIT"
-    }
+    "title": "Node.js CRUD application"
   },
   "host": "localhost:8000",
-  "basepath": "/",
+  "basePath": "/api",
   "tags": [
     {
       "name": "User",
@@ -17,87 +14,128 @@
     }
   ],
   "schemes": ["http"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
   "paths": {
-    "/api/post": {
+    "/post": {
       "post": {
         "tags": ["User"],
-        "description": "Create new user",
+        "summary": "Add user",
+        "description": "Add user to the system",
+        "produces": ["application/json"],
         "parameters": [
           {
-            "name": "name",
             "in": "body",
-            "description": "User name that we want to create",
-            "required": true
-          },
-          {
-            "name": "email",
-            "in": "body",
-            "description": "User email that we want to create",
-            "required": true
-          },
-          {
-            "name": "password",
-            "in": "body",
-            "description": "User password that we want to create",
-            "required": true
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/adduser"
+            }
           }
         ],
-        "produces": ["application/json"],
         "responses": {
-          "200": {
+          "default": {
             "description": "User created succesfully"
           }
         }
       }
     },
-    "/api/get": {
+    "/get": {
       "get": {
-        "tags": ["Users"],
-
-        "summary": "get all the users",
+        "tags": ["User"],
+        "summary": "Get all users",
+        "description": "Get all users from system",
+        "produces": ["application/json"],
         "responses": {
-          "200": {
-            "description": "ok"
+          "default": {
+            "description": "Get all users"
           }
         }
       }
     },
-    "/api/update/{user_id}": {
+    "/update/{id}": {
       "put": {
-        "tags": ["Users"],
-        "summary": "update user by id",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "body",
-            "description": "User name that we want to update"
-          },
-          {
-            "name": "email",
-            "in": "body",
-            "description": "User email that we want to update"
-          },
-          {
-            "name": "password",
-            "in": "body",
-            "description": "User password that we want to "
+        "tags": ["User"],
+        "summary": "Update user"
+      },
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "description": "ID of body",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "in": "body",
+          "name": "body",
+          "description": "update user Record",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/updateRecord"
           }
-        ],
-        "responses": {
-          "200": { "description": "user updated" }
+        }
+      ],
+      "responses": {
+        "default": {
+          "description": "User updated succesfully"
         }
       }
     },
-    "/api/delete/{user_id}": {
+    "/delete/{id}": {
       "delete": {
-        "tags": ["Users"],
-        "summary": "delete user from system",
-        "responses": {
-          "200": {
-            "description": "user deleted succesfully"
-          }
+        "tags": ["User"],
+        "summary": "delete user",
+        "description": "Delete user from system"
+      },
+      "produces": ["application/json"],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "description": "ID of body",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "responses": {
+        "default": {
+          "description": "user deleted succesfully"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "adduser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "required": true
+        },
+        "password": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "updateRecord": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
         }
       }
     }

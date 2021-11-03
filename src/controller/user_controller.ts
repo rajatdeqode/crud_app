@@ -22,7 +22,7 @@ async function add_user(req: express.Request, res: express.Response) {
 
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, salt);
-  console.log(hash);
+
 
   const user = new User({
     name,
@@ -38,7 +38,9 @@ async function add_user(req: express.Request, res: express.Response) {
 }
 
 async function update_user(req: express.Request, res: express.Response) {
+  
   const id = req.params.id;
+  
   if (!id) {
     return res.status(422).json({ message: "user id not found" });
   }
