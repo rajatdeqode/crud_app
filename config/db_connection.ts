@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
-import express from 'express'
+import express from "express";
+const url: any = process.env.DB_URL;
 
 mongoose
-  .connect("mongodb://mongo:27017/type")
+  .connect(url)
   .then(() => {
     console.log("Db connected succesfully");
   })
-  .catch((e:express.ErrorRequestHandler) => {
+  .catch((e: express.ErrorRequestHandler) => {
     console.log(e);
   });
 

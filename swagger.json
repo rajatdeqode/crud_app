@@ -1,9 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
+    "title": "Node.js CRUD application",
     "description": "Node.js CRUD application using typescript",
     "version": "1.0.0",
-    "title": "Node.js CRUD application"
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
   },
   "host": "localhost:8000",
   "basePath": "/api",
@@ -31,11 +35,18 @@
             }
           }
         ],
-        "responses": {
-          "default": {
-            "description": "User created succesfully"
+        "responses": [
+          {
+            "200": {
+              "description": "User created succesfully"
+            }
+          },
+          {
+            "500": {
+              "description": "Server error "
+            }
           }
-        }
+        ]
       }
     },
     "/get": {
@@ -44,15 +55,23 @@
         "summary": "Get all users",
         "description": "Get all users from system",
         "produces": ["application/json"],
-        "responses": {
-          "default": {
-            "description": "Get all users"
+        "responses": [
+          {
+            "200": {
+              "description": "Get all users"
+            },
+            "500": {
+              "description": "Server error"
+            }
           }
-        }
+        ]
       }
     },
     "/update/{id}": {
       "put": {
+        "security":[{
+          "Bearer": []
+        }],
         "tags": ["User"],
         "summary": "Update user"
       },
@@ -75,11 +94,18 @@
           }
         }
       ],
-      "responses": {
-        "default": {
-          "description": "User updated succesfully"
+      "responses": [
+        {
+          "200": {
+            "description": "User updated succesfully"
+          }
+        },
+        {
+          "500": {
+            "description": "Server error"
+          }
         }
-      }
+      ]
     },
     "/delete/{id}": {
       "delete": {
@@ -97,11 +123,25 @@
           "type": "string"
         }
       ],
-      "responses": {
-        "default": {
-          "description": "user deleted succesfully"
+      "responses": [
+        {
+          "200": {
+            "description": "user deleted succesfully"
+          }
+        },
+        {
+          "500": {
+            "description": "Server error"
+          }
         }
-      }
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "auth",
+      "in": "header"
     }
   },
   "definitions": {

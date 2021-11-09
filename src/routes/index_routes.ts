@@ -1,8 +1,7 @@
 import  express from "express";
 const router:express.Router=express.Router();
 import { body } from 'express-validator'
-import swagger from 'swagger-ui-express'
-import swaggerDoc from '../../swagger.json'
+import auth_middleware from '../../middlewares/auth-middleware'
 const user_controller=require('../controller/user_controller')
 
 
@@ -15,7 +14,7 @@ router.post('/post',[
     body('password').isLength({min:5}).withMessage('min 5 character required')
 ],user_controller.add_user)
 
-router.put('/update/:id',user_controller.update_user)
+router.put('/update/:id',auth_middleware,user_controller.update_user)
 
 router.delete('/delete/:id',user_controller.delete_user)
 
