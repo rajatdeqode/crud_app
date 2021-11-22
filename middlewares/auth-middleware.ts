@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import { verify } from "jsonwebtoken";
 import express from "express";
 
 async function auth(
@@ -6,19 +6,20 @@ async function auth(
   res: express.Response,
   next: express.NextFunction
 ) {
-  let token =req.header("authorization");
-  
+  let token: any = req?.header("authorization")?.split(" ")[1];
+
   if (!token) {
     return res.status(422).send({ message: "Token not found" });
   }
-  const secret: any = process.env.ACCESS_TOKEN;
+  const secret = <any>process.env.ACCESS_TOKEN;
   try {
-    const decoded: any = jwt.verify(token, secret);
+    const decoded: any = await verify(token, secret);
 
     if (!decoded) {
       return res.status(422).send({ message: "Invalid token" });
     }
-    //req.user=<any> decoded;
+
+    (<any>req).user = decoded;
 
     next();
   } catch (e) {

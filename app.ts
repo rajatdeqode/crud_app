@@ -1,5 +1,5 @@
-import * as dotenv from 'dotenv';
-dotenv.config({path:"./config/.env"});
+import * as dotenv from "dotenv";
+dotenv.config({ path: "./config/.env" });
 import "./config/db_connection";
 import express from "express";
 import swaggerUi from "swagger-ui-express";
@@ -8,7 +8,6 @@ import swaggerDoc from "./swagger.json";
 const app: express.Application = express();
 
 const port: any = process.env.PORT || 8000;
-
 
 const index_router = require("./src/routes/index_routes");
 
